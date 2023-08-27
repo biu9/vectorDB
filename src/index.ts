@@ -8,12 +8,6 @@ const azureApiKey = process.env.AZURE_OPENAI_KEY || '';
 
 const DOC_PATH = 'documents'
 
-let messages = [
-  { role: "system", content: "" },
-  { role: "user", content: "你好" },
-];
-
-
 async function main() {
 
   const client = new OpenAIClient(endpoint, new AzureKeyCredential(azureApiKey));
