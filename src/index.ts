@@ -1,23 +1,30 @@
 #! /usr/bin/env node
 import { OpenAIClient, AzureKeyCredential } from "@azure/openai";
+import { loadDocument } from "./utils/loadDocument";
 require('dotenv').config()
 
 const endpoint = process.env.AZURE_OPENAI_ENDPOINT || '';
 const azureApiKey = process.env.AZURE_OPENAI_KEY || '';
 
+const DOC_PATH = 'documents'
+
 let messages = [
-    { role: "system", content: "" },
-    { role: "user", content: "你好" },
-  ];
-  
+  { role: "system", content: "" },
+  { role: "user", content: "你好" },
+];
+
 
 async function main() {
-    const client = new OpenAIClient(endpoint, new AzureKeyCredential(azureApiKey));
-    const deploymentId = "thy111";
 
-    const res = await client.getChatCompletions(deploymentId, messages);
+  const client = new OpenAIClient(endpoint, new AzureKeyCredential(azureApiKey));
+  const deploymentId = "thy-openai-embedding";
 
-    console.log(res.choices[0].message?.content)
+  const documents = loadDocument(DOC_PATH);
+
+  const res = await client.getEmbeddings(deploymentId, ['hello']);
+
+  console.log(res.data)
+
 }
 
 main();
