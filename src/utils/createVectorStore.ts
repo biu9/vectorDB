@@ -1,7 +1,5 @@
 interface IEmbedding {
-    vector: number[],
-    path: string,
-    content: string
+    embedding: number[],
     [key: string]: any
 }
 
@@ -24,9 +22,9 @@ const calCosineSimilarity = (vector1: number[], vector2: number[]) => {
 const createVectorStore = (embeddings: IEmbedding[]) => {
     let store: IEmbedding[] = embeddings; // 利用闭包，存储所有的向量
 
-    const query = (queryVector: number[], topK: number) => {
-        const res = store.map(embedding => {
-            const similarity = calCosineSimilarity(queryVector, embedding.vector);
+    const query = (queryVector: number[], topK: number = 1) => {
+        const res = store.map((embedding:IEmbedding) => {
+            const similarity = calCosineSimilarity(queryVector, embedding.embedding);
             return {
                 ...embedding,
                 similarity
