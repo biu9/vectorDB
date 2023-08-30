@@ -1,3 +1,5 @@
+import * as fs from "fs";
+
 interface IEmbedding {
   embedding: number[];
   metadata: {
@@ -37,9 +39,12 @@ const createVectorStore = (embeddings: IEmbedding[]) => {
           queryVector,
           embedding.embedding
         );
+        const content = fs.readFileSync(embedding.metadata.path, "utf-8");
+        const path = embedding.metadata.path;
         return {
-          ...embedding,
-          similarity,
+            similarity,
+            path,
+            content,
         };
       })
       .sort((a, b) => {
