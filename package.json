@@ -19,5 +19,26 @@
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
-  }
+  },
+  "name": "vectordb-js",
+  "description": "用typescript实现的vector db",
+  "version": "1.0.1",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/biu9/vertorDB.git"
+  },
+  "keywords": [
+    "vectordb"
+  ],
+  "author": "thy",
+  "license": "ISC",
+  "types": "./lib/index.d.ts",
+  "bugs": {
+    "url": "https://github.com/biu9/vertorDB/issues"
+  },
+  "homepage": "https://github.com/biu9/vertorDB#readme"
 }
