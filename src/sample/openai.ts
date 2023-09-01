@@ -1,28 +1,11 @@
 import { vectorStore } from "../index";
 import { OpenAIClient, AzureKeyCredential } from "@azure/openai";
-import { EmbeddingItem } from "@azure/openai";
+import { ISplitedDocument,IVector } from "@/types";
 
 const endpoint = process.env.AZURE_OPENAI_ENDPOINT || "";
 const azureApiKey = process.env.AZURE_OPENAI_KEY || "";
 
 const DOC_PATH = "documents";
-
-interface ISplitedDocument {
-  content: string;
-  metaData: {
-    path: string;
-    startIndex: number;
-    endIndex: number;
-  };
-}
-
-interface IVector extends EmbeddingItem {
-  metadata: {
-    path: string;
-    startIndex: number;
-    endIndex: number;
-  };
-}
 
 const client = new OpenAIClient(endpoint, new AzureKeyCredential(azureApiKey));
 const deploymentId = "thy-openai-embedding";
@@ -36,7 +19,7 @@ async function openaiEmbedding(
   );
   const vectors: IVector[] = res.data.map((vector, idx) => {
     return {
-      ...vector,
+      embedding: vector.embedding,
       metadata: {
         path: splitDocs[idx].metaData.path,
         startIndex: splitDocs[idx].metaData.startIndex,

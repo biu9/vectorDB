@@ -1,13 +1,5 @@
 import * as fs from "fs";
-
-interface IEmbedding {
-  embedding: number[];
-  metadata: {
-    path: string;
-    startIndex: number;
-    endIndex: number;
-  };
-}
+import { IVector } from "@/types";
 
 const calCosineSimilarity = (vector1: number[], vector2: number[]) => {
   const dotProduct = vector1.reduce((acc, cur, idx) => {
@@ -29,12 +21,12 @@ const calCosineSimilarity = (vector1: number[], vector2: number[]) => {
   return dotProduct / (norm1 * norm2);
 };
 
-const createVectorStore = (embeddings: IEmbedding[]) => {
-  let store: IEmbedding[] = embeddings; // 利用闭包，存储所有的向量
+const createVectorStore = (embeddings: IVector[]) => {
+  let store: IVector[] = embeddings; // 利用闭包，存储所有的向量
 
   const query = (queryVector: number[], topK: number = 1) => {
     const res = store
-      .map((embedding: IEmbedding) => {
+      .map((embedding: IVector) => {
         const similarity = calCosineSimilarity(
           queryVector,
           embedding.embedding

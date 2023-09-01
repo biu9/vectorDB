@@ -1,12 +1,5 @@
-interface IEmbedding {
-    embedding: number[];
-    metadata: {
-        path: string;
-        startIndex: number;
-        endIndex: number;
-    };
-}
-declare const createVectorStore: (embeddings: IEmbedding[]) => {
+import { IVector } from "@vectorDB/types";
+declare const createVectorStore: (embeddings: IVector[]) => {
     query: (queryVector: number[], topK?: number) => {
         similarity: number;
         path: string;

@@ -1,12 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
-
-interface IDocument {
-  content: string;
-  metaData: {
-    path: string;
-  };
-}
+import { IDocument } from "@/types";
 
 const loadDocument = (dirPath: string) => {
   const res: IDocument[] = [];

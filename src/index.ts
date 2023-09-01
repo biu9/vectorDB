@@ -1,32 +1,9 @@
 #! /usr/bin/env node
 import { loadDocument } from "./utils/loadDocument";
 import { splitDocs } from "./utils/splitDocs";
-import { EmbeddingItem } from "@azure/openai";
 import { createVectorStore } from "./utils/createVectorStore";
+import { IVectorStore } from "@/types";
 require("dotenv").config();
-
-interface IVector extends EmbeddingItem {
-  metadata: {
-    path: string;
-    startIndex: number;
-    endIndex: number;
-  };
-}
-
-interface IVectorStore {
-  docPath: string;
-  splitSize? :number;
-  embeddingFunc: (splitedDocs: ISplitedDocument[]) => Promise<IVector[]>;
-}
-
-interface ISplitedDocument {
-  content: string;
-  metaData: {
-    path: string;
-    startIndex: number;
-    endIndex: number;
-  };
-}
 
 async function vectorStore({ docPath,splitSize=100,embeddingFunc }:IVectorStore) {
   const documents = loadDocument(docPath);

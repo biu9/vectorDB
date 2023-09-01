@@ -8,11 +8,17 @@
         "lib": [
             "es6"
         ],
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "paths": {
+            "@/*": [
+                "./src/*"
+            ]
+        }
     },
     "include": [
         "src",
-        "api"
+        "api",
+        "src/types/index.ts"
     ],
     "exclude": [
         "node_modules",
