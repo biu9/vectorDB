@@ -1,4 +1,4 @@
-import { IVector } from "@vectorDB/types";
+import { IVector } from "@/types";
 declare const createVectorStore: (embeddings: IVector[]) => {
     query: (queryVector: number[], topK?: number) => {
         similarity: number;
